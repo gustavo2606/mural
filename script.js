@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const anuncios = JSON.parse(localStorage.getItem('anuncios')) || [];
         anuncios.push(anuncio);
         localStorage.setItem('anuncios', JSON.stringify(anuncios));
+        
+        
 
         // Redireciona para a página onde os anúncios são exibidos
         window.location.href = 'painel.html';

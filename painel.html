@@ -115,10 +115,13 @@
                     <option value="vendas">Vendas</option>
                     <option value="eventos">Eventos</option>
                 </select>
+                 
             </div>
 
             <div id="service-list"></div>
         </section>
+
+        <button onclick="history.back()">Voltar</button>
 
         <a href="index copy.html" class="bnt">Faça seu anúncio</a>
     </main>
@@ -163,6 +166,12 @@
         filterSelect.addEventListener('change', function () {
             renderAnuncios(this.value);
         });
+        
     </script>
+
+
+
+    
+
 </body>
 </html>

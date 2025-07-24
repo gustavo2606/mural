@@ -1,6 +1,7 @@
 // Verifica se o elemento 'service-list' existe na página
 const container = document.getElementById('service-list');
 
+
 if (container) {
   const anuncios = JSON.parse(localStorage.getItem('anuncios')) || [];
 
@@ -21,5 +22,7 @@ if (container) {
 
       container.appendChild(div);
     });
+    
   }
+  
 }
