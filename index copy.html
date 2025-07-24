@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadro de Serviços</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Quadro de Serviços</h1>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h2>Publicar Anúncio</h2>
+            <form id="service-form">
+                <input type="text" id="title" placeholder="Título" required>
+                <textarea id="description" placeholder="Descrição" required></textarea>
+                <select id="category" required>
+                    <option value="">Categoria</option>
+                    <option value="acadêmico">Acadêmico</option>
+                    <option value="vendas">Vendas</option>
+                    <option value="eventos">Eventos</option>
+                </select>
+                <input type="text" id="contact" placeholder="Contato (e-mail ou WhatsApp)" required>
+                
+                <button type="submit">Publicar</button>
+                
+            </form>
+        </section>
+<button onclick="history.back()">Voltar</button>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

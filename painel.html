@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Serviços</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        header {
+            background-color: #f4f4f4;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-image {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-image img {
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .list-section h2 {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .filter-container {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .anuncio {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            background: #f9f9f9;
+        }
+
+        .anuncio h3 {
+            margin: 0 0 0.5rem 0;
+        }
+
+        .categoria {
+            font-weight: bold;
+            color: #0366d6;
+            margin-bottom: 0.5rem;
+        }
+
+        .data {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .contato {
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        .bnt {
+            display: inline-block;
+            background-color: #0366d6;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 2rem auto;
+            display: block;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .bnt:hover {
+            background-color: #024d9c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-image">
+            <img src="img/logo01.png" alt="Senac Building">
+            <div class="logo">Senac</div>
+        </div>
+    </header>
+
+    <main>
+        <section class="list-section">
+            <h2>Anúncios</h2>
+
+            <!-- Filtro por categoria -->
+            <div class="filter-container">
+                <label for="filter">Filtrar por categoria:</label>
+                <select id="filter">
+                    <option value="todos">Todos</option>
+                    <option value="acadêmico">Acadêmico</option>
+                    <option value="vendas">Vendas</option>
+                    <option value="eventos">Eventos</option>
+                </select>
+            </div>
+
+            <div id="service-list"></div>
+        </section>
+
+        <a href="index copy.html" class="bnt">Faça seu anúncio</a>
+    </main>
+
+    <script>
+        const container = document.getElementById('service-list');
+        const filterSelect = document.getElementById('filter');
+        const anuncios = JSON.parse(localStorage.getItem('anuncios')) || [];
+
+        function renderAnuncios(filtro) {
+            container.innerHTML = ''; // Limpa a lista antes de renderizar
+
+            const anunciosFiltrados = filtro === 'todos'
+                ? anuncios
+                : anuncios.filter(anuncio => anuncio.category === filtro);
+
+            if (anunciosFiltrados.length === 0) {
+                container.innerHTML = '<p>Nenhum anúncio encontrado para esta categoria.</p>';
+                return;
+            }
+
+            anunciosFiltrados.forEach(anuncio => {
+                const div = document.createElement('div');
+                div.classList.add('anuncio');
+
+                div.innerHTML = `
+                    <h3>${anuncio.title}</h3>
+                    <div class="categoria">Categoria: ${anuncio.category}</div>
+                    <div class="data">Publicado em: ${new Date(anuncio.date).toLocaleString('pt-BR')}</div>
+                    <p>${anuncio.description}</p>
+                    <div class="contato">Contato: ${anuncio.contact}</div>
+                `;
+
+                container.appendChild(div);
+            });
+        }
+
+        // Inicializa com todos os anúncios
+        renderAnuncios('todos');
+
+        // Atualiza ao mudar o filtro
+        filterSelect.addEventListener('change', function () {
+            renderAnuncios(this.value);
+        });
+    </script>
+</body>
+</html>
