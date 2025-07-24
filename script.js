@@ -31,4 +31,5 @@ document.addEventListener('DOMContentLoaded', () => {
         // Redireciona para a página onde os anúncios são exibidos
         window.location.href = 'painel.html';
     });
+    
 });

@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Serviços</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 0 auto;
+            font-family: 'Arial', sans-serif;
+            background-color: #fff;
             padding: 0 1rem;
         }
 
-        header {
-            background-color: #f4f4f4;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
+    
         .header-image {
             display: flex;
             align-items: center;
@@ -34,95 +32,139 @@
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
-            color: #333;
+            color: #0366d6;
+        }
+
+        .list-section {
+            margin-top: 1.5rem;
         }
 
         .list-section h2 {
             text-align: center;
-            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
         }
 
         .filter-container {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-container select {
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
         }
 
         .anuncio {
-            border: 1px solid #ccc;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 6px;
+            border-radius: 16px;
             background: #f9f9f9;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .anuncio h3 {
-            margin: 0 0 0.5rem 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            color: #333;
         }
 
         .categoria {
             font-weight: bold;
             color: #0366d6;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
 
         .data {
-            font-size: 0.8rem;
-            color: #666;
+            font-size: 0.85rem;
+            color: #888;
             margin-bottom: 0.5rem;
         }
 
         .contato {
             font-style: italic;
             margin-top: 0.5rem;
+            color: #444;
         }
 
-        .bnt {
-            display: inline-block;
+        .bnt,
+        .btn-voltar {
+            display: block;
+            margin: 1.5rem auto;
+            padding: 0.8rem 1.6rem;
             background-color: #0366d6;
             color: white;
-            padding: 0.7rem 1.5rem;
-            text-decoration: none;
-            border-radius: 5px;
-            margin: 2rem auto;
-            display: block;
+            border: none;
+            border-radius: 25px;
             text-align: center;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
             width: fit-content;
         }
 
-        .bnt:hover {
+        .bnt:hover,
+        .btn-voltar:hover {
             background-color: #024d9c;
+        }
+
+        .Tt {
+            color: #F68C1E;
+            font-size: large;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+        }
+
+        .botao-azul {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .botao-azul:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="header-image">
-            <img src="img/logo01.png" alt="Senac Building">
-            <div class="logo">Senac</div>
+            <img src="img/logo01.png" alt="Senac Logo">
+            <div class="logo"></div>
         </div>
     </header>
 
     <main>
         <section class="list-section">
-            <h2>Anúncios</h2>
+            <h2 class="Tt">Anúncios</h2>
 
             <!-- Filtro por categoria -->
             <div class="filter-container">
-                <label for="filter">Filtrar por categoria:</label>
+                <label for="filter" class="Tt">Filtrar por categoria:</label>
                 <select id="filter">
                     <option value="todos">Todos</option>
                     <option value="acadêmico">Acadêmico</option>
                     <option value="vendas">Vendas</option>
                     <option value="eventos">Eventos</option>
                 </select>
-                 
             </div>
 
             <div id="service-list"></div>
         </section>
 
-        <button onclick="history.back()">Voltar</button>
-
+        <button onclick="history.back()" class="btn-voltar">Voltar</button>
         <a href="index copy.html" class="bnt">Faça seu anúncio</a>
     </main>
 
@@ -132,14 +174,14 @@
         const anuncios = JSON.parse(localStorage.getItem('anuncios')) || [];
 
         function renderAnuncios(filtro) {
-            container.innerHTML = ''; // Limpa a lista antes de renderizar
+            container.innerHTML = '';
 
             const anunciosFiltrados = filtro === 'todos'
                 ? anuncios
                 : anuncios.filter(anuncio => anuncio.category === filtro);
 
             if (anunciosFiltrados.length === 0) {
-                container.innerHTML = '<p>Nenhum anúncio encontrado para esta categoria.</p>';
+                container.innerHTML = '<p style="text-align:center;">Nenhum anúncio encontrado para esta categoria.</p>';
                 return;
             }
 
@@ -148,30 +190,47 @@
                 div.classList.add('anuncio');
 
                 div.innerHTML = `
-                    <h3>${anuncio.title}</h3>
-                    <div class="categoria">Categoria: ${anuncio.category}</div>
-                    <div class="data">Publicado em: ${new Date(anuncio.date).toLocaleString('pt-BR')}</div>
-                    <p>${anuncio.description}</p>
-                    <div class="contato">Contato: ${anuncio.contact}</div>
-                `;
+          <h3>${anuncio.title}</h3>
+          <div class="categoria">Categoria: ${anuncio.category}</div>
+          <div class="data">Publicado em: ${new Date(anuncio.date).toLocaleString('pt-BR')}</div>
+          <p>${anuncio.description}</p>
+          <div class="contato">Contato: ${anuncio.contact}</div>
+        `;
 
                 container.appendChild(div);
             });
         }
 
-        // Inicializa com todos os anúncios
         renderAnuncios('todos');
 
-        // Atualiza ao mudar o filtro
         filterSelect.addEventListener('change', function () {
             renderAnuncios(this.value);
         });
-        
+
+
+
+
+
+    </script>
+
+    
+
+
+    <script>
+        function limparAnuncios() {
+            localStorage.setItem('anuncios', JSON.stringify([]));
+            alert('Anúncios foram apagados!');
+        }
     </script>
 
 
 
-    
+
+
+
+
+
 
 </body>
+
 </html>

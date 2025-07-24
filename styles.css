@@ -4,6 +4,7 @@ body {
     padding: 0;
     background: #ffffff;
     color: #333;
+    width: 393px;
 }
 
 header {
@@ -54,3 +55,5 @@ button {
     border-radius: 4px;
     background-color: #e6f0ff;
 }
+
+

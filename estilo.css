@@ -107,9 +107,13 @@ section {
     display: block;
 }
 
-body {
+.ge {
+   
     line-height: 1;
+    width: 393px;
+    background-image: url('https://www.abordagemnoticias.com/uploads/noticias/2022/45/781464-556891-08112022112919.jpg'); /* substitua pelo caminho da sua imagem */
 }
+
 
 ol,
 ul {
@@ -188,3 +192,4 @@ button.next { right: 0; }
     height: 150px;
   }
 }
+
